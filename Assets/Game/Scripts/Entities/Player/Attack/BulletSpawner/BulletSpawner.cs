@@ -1,4 +1,5 @@
-﻿using Game.Scripts.Entities.Base.Spawner;
+﻿using Game.Scripts.Entities.Base;
+using Game.Scripts.Entities.Base.Spawner;
 using UnityEngine;
 
 namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
@@ -14,7 +15,7 @@ namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
         {
             Bullet bullet = _entitiesPool.Get();
             
-            bullet.Reset(transform.position, transform.up);
+            bullet.Reset(transform.position, transform.up, transform.root);
             bullet.Released += OnReleased;
         }
     }

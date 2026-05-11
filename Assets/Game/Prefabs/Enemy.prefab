@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8836076080109373009}
   - component: {fileID: 8472826548444698421}
-  - component: {fileID: 3256747536980057368}
   - component: {fileID: 3542799700668168906}
   - component: {fileID: 4896181939729337321}
+  - component: {fileID: 3256747536980057368}
+  - component: {fileID: 6112210301405010011}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -88,18 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3256747536980057368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9003354168494605166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99c8648ac04702bf6255dfdf1378b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &3542799700668168906
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -251,6 +240,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3256747536980057368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003354168494605166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be99c8648ac04702bf6255dfdf1378b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6112210301405010011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9003354168494605166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c408665da873412595d3ff27ef1dfb54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 1
 --- !u!1 &9107765893612876739
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,8 +274,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7204339881263537040}
+  - component: {fileID: 6220196625034100101}
+  - component: {fileID: 6220196625034100102}
   m_Layer: 0
-  m_Name: FirePoint
+  m_Name: BulletSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,3 +298,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8836076080109373009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6220196625034100101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107765893612876739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f32029b85b4eef8c75e93e9100947d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entitiesPool: {fileID: 6220196625034100102}
+  _shootInterval: 2
+--- !u!114 &6220196625034100102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107765893612876739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288e4db562e645529d1ba4193fbe196b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityPrefab: {fileID: 8179086851017885195, guid: 11800d1d8a7c0ed479b09373b86c1e56, type: 3}
+  _capacity: 5
+  _maxSize: 10

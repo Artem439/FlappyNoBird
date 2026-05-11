@@ -2,15 +2,17 @@
 using Game.Scripts.Entities.Interfaces;
 using UnityEngine;
 
-namespace Game.Scripts.Entities.Player.Attack
+namespace Game.Scripts.Entities.Base
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class Bullet : MonoBehaviour, ISpawnable<Bullet>
     {
         [SerializeField] private float _bulletSpeed = 20f;
+        [SerializeField] private float _damage = 1f;
         [SerializeField] private float _lifeTime = 3f;
         
         private Rigidbody2D _rigidbody2D;
+        private Transform _owner;
         private float _lifeTimeLeft;
         
         public event Action<Bullet> Released;
@@ -28,6 +30,18 @@ namespace Game.Scripts.Entities.Player.Attack
                 Release();
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (_owner != null && other.transform.root == _owner)
+                return;
+
+            if (other.TryGetComponent(out IDamageable damageable) == false)
+                return;
+
+            damageable.TakeDamage(_damage);
+            Release();
+        }
+
         public void Reset(Vector3 position)
         {
             Reset(position, transform.up);
@@ -35,10 +49,16 @@ namespace Game.Scripts.Entities.Player.Attack
 
         public void Reset(Vector3 position, Vector2 direction)
         {
+            Reset(position, direction, null);
+        }
+
+        public void Reset(Vector3 position, Vector2 direction, Transform owner)
+        {
             Vector2 normalizedDirection = direction.sqrMagnitude > 0f
                 ? direction.normalized
                 : Vector2.right;
 
+            _owner = owner;
             transform.position = position;
             transform.up = normalizedDirection;
             _lifeTimeLeft = _lifeTime;
