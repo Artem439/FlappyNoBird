@@ -16,7 +16,7 @@ namespace Game.Scripts.Controls
             if (Input.GetKey(JumpButton))
                 JumpButtonClicked?.Invoke();
             
-            if (Input.GetKey(ShutButton))
+            if (Input.GetKeyDown(ShutButton))
                 ShutButtonClicked?.Invoke();
         }
     }
