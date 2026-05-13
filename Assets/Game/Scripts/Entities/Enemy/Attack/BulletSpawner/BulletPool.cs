@@ -4,7 +4,7 @@ using Game.Scripts.Entities.Player.Attack;
 
 namespace Game.Scripts.Entities.Enemy.Attack.BulletSpawner
 {
-    public class BulletPool : PoolBase<Bullet>
+    public class BulletPool : PoolBase<BaseBullet>
     {
     }
 }

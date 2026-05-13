@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
 {
-    public class BulletSpawner : SpawnerBase<Bullet>
+    public class BulletSpawner : SpawnerBase<BaseBullet>
     {
         public void Shoot()
         {
@@ -13,10 +13,10 @@ namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
 
         protected override void Spawn()
         {
-            Bullet bullet = _entitiesPool.Get();
+            BaseBullet baseBullet = _entitiesPool.Get();
             
-            bullet.Reset(transform.position, transform.up, transform.root);
-            bullet.Released += OnReleased;
+            baseBullet.Reset(transform.position, transform.up, transform.root);
+            baseBullet.Released += OnReleased;
         }
     }
 }

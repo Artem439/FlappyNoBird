@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Entities.Enemy.Attack.BulletSpawner
 {
-    public class BulletSpawner : SpawnerBase<Bullet>
+    public class BulletSpawner : SpawnerBase<BaseBullet>
     {
         [SerializeField] [Min(0.1f)] private float _shootInterval = 2f;
 
@@ -27,10 +27,10 @@ namespace Game.Scripts.Entities.Enemy.Attack.BulletSpawner
 
         protected override void Spawn()
         {
-            Bullet bullet = _entitiesPool.Get();
+            BaseBullet baseBullet = _entitiesPool.Get();
 
-            bullet.Reset(transform.position, -transform.up, transform.root);
-            bullet.Released += OnReleased;
+            baseBullet.Reset(transform.position, -transform.up, transform.root);
+            baseBullet.Released += OnReleased;
         }
 
         private IEnumerator ShootRoutine()

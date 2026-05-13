@@ -11,6 +11,8 @@ namespace Game.Scripts.Entities.Enemy
         private HealthBase _health;
 
         public event Action<Enemy> Released;
+        
+        public static event Action OnDied;
 
         private void Awake()
         {
@@ -37,6 +39,7 @@ namespace Game.Scripts.Entities.Enemy
         private void OnDeath()
         {
             Released?.Invoke(this);
+            OnDied?.Invoke();
         }
     }
 }

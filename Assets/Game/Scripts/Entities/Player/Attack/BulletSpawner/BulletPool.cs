@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
 {
-    public class BulletPool : PoolBase<Bullet>
+    public class BulletPool : PoolBase<BaseBullet>
     {
         
     }

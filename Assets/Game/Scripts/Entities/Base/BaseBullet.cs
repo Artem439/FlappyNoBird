@@ -5,21 +5,21 @@ using UnityEngine;
 namespace Game.Scripts.Entities.Base
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Bullet : MonoBehaviour, ISpawnable<Bullet>
+    public class BaseBullet : MonoBehaviour, ISpawnable<BaseBullet>
     {
         [SerializeField] private float _bulletSpeed = 20f;
-        [SerializeField] private float _damage = 1f;
+        [SerializeField] protected float _damage = 1f;
         [SerializeField] private float _lifeTime = 3f;
         
-        private Rigidbody2D _rigidbody2D;
-        private Transform _owner;
+        protected Rigidbody2D Rigidbody2D;
+        protected Transform Owner;
         private float _lifeTimeLeft;
         
-        public event Action<Bullet> Released;
-        
+        public event Action<BaseBullet> Released;
+
         private void Awake()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+            Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -30,10 +30,13 @@ namespace Game.Scripts.Entities.Base
                 Release();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (_owner != null && other.transform.root == _owner)
-                return;
+            if (Owner != null && Owner.GetComponentInParent<Enemy.Enemy>() != null)
+            {
+                if (other.GetComponentInParent<Enemy.Enemy>() != null)
+                    return;
+            }
 
             if (other.TryGetComponent(out IDamageable damageable) == false)
                 return;
@@ -41,7 +44,7 @@ namespace Game.Scripts.Entities.Base
             damageable.TakeDamage(_damage);
             Release();
         }
-
+        
         public void Reset(Vector3 position)
         {
             Reset(position, transform.up);
@@ -58,16 +61,16 @@ namespace Game.Scripts.Entities.Base
                 ? direction.normalized
                 : Vector2.right;
 
-            _owner = owner;
+            Owner = owner;
             transform.position = position;
             transform.up = normalizedDirection;
             _lifeTimeLeft = _lifeTime;
-            _rigidbody2D.velocity = normalizedDirection * _bulletSpeed;
+            Rigidbody2D.velocity = normalizedDirection * _bulletSpeed;
         }
 
         private void Release()
         {
-            _rigidbody2D.velocity = Vector2.zero;
+            Rigidbody2D.velocity = Vector2.zero;
             Released?.Invoke(this);
         }
     }
