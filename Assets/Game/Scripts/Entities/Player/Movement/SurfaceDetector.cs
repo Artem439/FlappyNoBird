@@ -10,12 +10,12 @@ namespace Game.Scripts.Entities.Player.Movement
         
         [SerializeField] private float _rayDistance = 0.01f;
         
-        public event Action IsSurfaceDetected;
+        public event Action SurfaceDetected;
 
         private void Update()
         {
             if (IsSurface())
-                IsSurfaceDetected?.Invoke();
+                SurfaceDetected?.Invoke();
         }
         
         private bool IsSurface()

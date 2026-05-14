@@ -1,15 +1,8 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Entities.Base.Spawner;
 
 namespace Game.Scripts.Environment.Platform.Spawner
 {
-    public class SurfaceRemover : MonoBehaviour
+    public class SurfaceRemover : RemoveBase<Surface>
     {
-        [SerializeField] private SurfacePool _surfacePool;
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent<Surface>(out Surface enemy))
-                _surfacePool.Release(enemy);
-        }
     }
 }

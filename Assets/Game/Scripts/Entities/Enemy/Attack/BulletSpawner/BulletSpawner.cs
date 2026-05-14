@@ -1,7 +1,6 @@
 using System.Collections;
 using Game.Scripts.Entities.Base;
 using Game.Scripts.Entities.Base.Spawner;
-using Game.Scripts.Entities.Player.Attack;
 using UnityEngine;
 
 namespace Game.Scripts.Entities.Enemy.Attack.BulletSpawner
@@ -29,7 +28,7 @@ namespace Game.Scripts.Entities.Enemy.Attack.BulletSpawner
         {
             BaseBullet baseBullet = _entitiesPool.Get();
 
-            baseBullet.Reset(transform.position, -transform.up, transform.root);
+            baseBullet.Init(transform.position, -transform.up, transform.root);
             baseBullet.Released += OnReleased;
         }
 

@@ -13,6 +13,7 @@ namespace Game.Scripts.Entities.Base
         
         protected Rigidbody2D Rigidbody2D;
         protected Transform Owner;
+        
         private float _lifeTimeLeft;
         
         public event Action<BaseBullet> Released;
@@ -30,13 +31,31 @@ namespace Game.Scripts.Entities.Base
                 Release();
         }
 
+        public void Reset(Vector3 position)
+        {
+            Init(position);
+        }
+
+        public void Init(Vector3 position, Vector2 direction = default, Transform owner = null)
+        {
+            Vector2 normalizedDirection = direction.sqrMagnitude > 0f
+                ? direction.normalized
+                : transform.up;
+
+            Owner = owner;
+            transform.position = position;
+            transform.up = normalizedDirection;
+            _lifeTimeLeft = _lifeTime;
+            Rigidbody2D.velocity = normalizedDirection * _bulletSpeed;
+        }
+        
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (Owner != null && Owner.GetComponentInParent<Enemy.Enemy>() != null)
-            {
-                if (other.GetComponentInParent<Enemy.Enemy>() != null)
-                    return;
-            }
+            if (IsOwner(other))
+                return;
+            
+            if (IsAlly(other))
+                return;
 
             if (other.TryGetComponent(out IDamageable damageable) == false)
                 return;
@@ -45,28 +64,12 @@ namespace Game.Scripts.Entities.Base
             Release();
         }
         
-        public void Reset(Vector3 position)
-        {
-            Reset(position, transform.up);
-        }
+        private bool IsOwner(Collider2D other) => Owner != null && other.transform.IsChildOf(Owner.transform);
 
-        public void Reset(Vector3 position, Vector2 direction)
-        {
-            Reset(position, direction, null);
-        }
-
-        public void Reset(Vector3 position, Vector2 direction, Transform owner)
-        {
-            Vector2 normalizedDirection = direction.sqrMagnitude > 0f
-                ? direction.normalized
-                : Vector2.right;
-
-            Owner = owner;
-            transform.position = position;
-            transform.up = normalizedDirection;
-            _lifeTimeLeft = _lifeTime;
-            Rigidbody2D.velocity = normalizedDirection * _bulletSpeed;
-        }
+        private bool IsAlly(Collider2D other) => 
+            Owner != null && 
+            Owner.GetComponentInParent<Enemy.Enemy>() != null && 
+            other.GetComponentInParent<Enemy.Enemy>() != null;
 
         private void Release()
         {

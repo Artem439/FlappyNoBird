@@ -24,16 +24,16 @@ namespace Game.Scripts.Entities.Player
 
         private void OnEnable()
         {
-            _surfaceDetector.IsSurfaceDetected += OnGameOver;
+            _surfaceDetector.SurfaceDetected += OnGameOver;
             _health.Death += OnGameOver;
-            _enemyDetector.OnFace += OnGameOver;
+            _enemyDetector.Faced += OnGameOver;
         }
 
         private void OnDisable()
         {
-            _surfaceDetector.IsSurfaceDetected -= OnGameOver;
+            _surfaceDetector.SurfaceDetected -= OnGameOver;
             _health.Death -= OnGameOver;
-            _enemyDetector.OnFace -= OnGameOver;
+            _enemyDetector.Faced -= OnGameOver;
         }
         
         private void OnGameOver()

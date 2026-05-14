@@ -8,11 +8,11 @@ namespace Game.Scripts.Entities.Enemy
     [RequireComponent(typeof(HealthBase))]
     public class Enemy : MonoBehaviour, ISpawnable<Enemy>
     {
-        private HealthBase _health;
-
+        public static event Action OnDied;
+        
         public event Action<Enemy> Released;
         
-        public static event Action OnDied;
+        private HealthBase _health;
 
         private void Awake()
         {

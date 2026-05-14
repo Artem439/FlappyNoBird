@@ -1,6 +1,5 @@
 ﻿using Game.Scripts.Entities.Base;
 using Game.Scripts.Entities.Base.Spawner;
-using UnityEngine;
 
 namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
 {
@@ -15,7 +14,7 @@ namespace Game.Scripts.Entities.Player.Attack.BulletSpawner
         {
             BaseBullet baseBullet = _entitiesPool.Get();
             
-            baseBullet.Reset(transform.position, transform.up, transform.root);
+            baseBullet.Init(transform.position, transform.up, transform.root);
             baseBullet.Released += OnReleased;
         }
     }

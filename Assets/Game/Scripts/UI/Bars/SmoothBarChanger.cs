@@ -3,7 +3,7 @@ using Game.Scripts.Entities.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.UI
+namespace Game.Scripts.UI.Bars
 {
     [RequireComponent(typeof(Slider))]
     public class SmoothBarChanger : MonoBehaviour

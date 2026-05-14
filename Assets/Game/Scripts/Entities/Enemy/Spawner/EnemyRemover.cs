@@ -1,15 +1,8 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Entities.Base.Spawner;
 
 namespace Game.Scripts.Entities.Enemy.Spawner
 {
-    public class EnemyRemover : MonoBehaviour
+    public class EnemyRemover : RemoveBase<Enemy>
     {
-        [SerializeField] private EnemyPool _enemyPool;
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.TryGetComponent<Enemy>(out Enemy enemy))
-                _enemyPool.Release(enemy);
-        }
     }
 }
